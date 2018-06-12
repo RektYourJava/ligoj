@@ -12,6 +12,7 @@ define(['jquery', 'cascade', 'i18n!bootbox/nls/bootbox-messages', 'bootbox/bootb
 	 * @param {String} param2 optional html message to add.
 	 */
 	module.confirmDelete = function (callback, param, param2) {
+		debugger;
 		var message = Handlebars.compile($cascade.$messages['deleteConfirm' + (param ? 'Param' : '')])(param) + (param2 || '');
 		module.dialog({
 			message: message,
@@ -23,6 +24,62 @@ define(['jquery', 'cascade', 'i18n!bootbox/nls/bootbox-messages', 'bootbox/bootb
 				danger: {
 					label: $cascade.$messages.delete,
 					className: 'btn-primary btn-danger btn-raised',
+					callback: callback
+				},
+				cancel: {
+					label: $cascade.$messages.cancel,
+					className: 'btn-link'
+				}
+			}
+		});
+	};
+	
+	/**
+	 * Display a prompt for a disable confirmation.
+	 * @param {Function} callback confirmed callback.
+	 * @param {String} param optional disable parameter used for template.
+	 * @param {String} param2 optional html message to add.
+	 */
+	module.confirmDisable = function (callback, param, param2) {
+		var message = Handlebars.compile($cascade.$messages['disableConfirm' + (param ? 'Param' : '')])(param) + (param2 || '');
+		module.dialog({
+			message: message,
+			title: $cascade.$messages.disable,
+			size: (message && message.length < 40) ? 'small' : undefined,
+			onEscape: true,
+			backdrop: '-',
+			buttons: {
+				danger: {
+					label: $cascade.$messages.disable,
+					className: 'btn-primary btn-danger btn-raised',
+					callback: callback
+				},
+				cancel: {
+					label: $cascade.$messages.cancel,
+					className: 'btn-link'
+				}
+			}
+		});
+	};
+	
+	/**
+	 * Display a prompt for a disable confirmation.
+	 * @param {Function} callback confirmed callback.
+	 * @param {String} param optional disable parameter used for template.
+	 * @param {String} param2 optional html message to add.
+	 */
+	module.confirmEnable = function (callback, param, param2) {
+		var message = Handlebars.compile($cascade.$messages['enableConfirm' + (param ? 'Param' : '')])(param) + (param2 || '');
+		module.dialog({
+			message: message,
+			title: $cascade.$messages.enable,
+			size: (message && message.length < 40) ? 'small' : undefined,
+			onEscape: true,
+			backdrop: '-',
+			buttons: {
+				danger: {
+					label: $cascade.$messages.enable,
+					className: 'btn-primary btn-success btn-raised',
 					callback: callback
 				},
 				cancel: {
